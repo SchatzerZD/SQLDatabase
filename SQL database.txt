@@ -49,3 +49,49 @@ ALTER TABLE kval_kandidat ADD CONSTRAINT kval_kandidat_fk1 FOREIGN KEY(kvalifika
 kvalifikasjon (kvalifikasjon_id);
 ALTER TABLE kval_kandidat ADD CONSTRAINT kval_kandidat_fk2 FOREIGN KEY(kandidat_id) REFERENCES
 kandidat (kandidat_id);
+
+
+INSERT INTO vikartjeneste(organisasjons_nr, navn, adresse, telefon, epost)
+ VALUES(345335, 'Onde AS', 'Doofvei 32', '111112', 'noe@gmail.com');
+
+INSERT INTO bedrift(organisasjons_nr, navn, telefon, epost)
+ VALUES(53453, 'Kult', '242342', 'kult@gmail.com');
+
+INSERT INTO bedrift(organisasjons_nr, navn, telefon, epost)
+ VALUES(345345, 'Beans', '34534234', 'bean@gmail.com');
+
+
+INSERT INTO kandidat(kandidat_id, fornavn, etternavn, telefon, epost)
+ VALUES(DEFAULT, 'Daniel', 'Saren', '1231231212', 'daniel@gmail.com');
+
+INSERT INTO kandidat(kandidat_id, fornavn, etternavn, telefon, epost)
+ VALUES(DEFAULT, 'Charlotte', 'Christiansen', '3453453', 'charlotte@gmail.com');
+INSERT INTO kandidat(kandidat_id, fornavn, etternavn, telefon, epost)
+ VALUES(DEFAULT, 'Ingrid', 'Flatland', '34564356', 'ingrid@gmail.com');
+
+
+INSERT INTO kvalifikasjon(kvalifikasjon_id, beskrivelse) VALUES(DEFAULT, 'sterk');
+INSERT INTO kvalifikasjon(kvalifikasjon_id, beskrivelse) VALUES(DEFAULT, 'smart');
+INSERT INTO kvalifikasjon(kvalifikasjon_id, beskrivelse) VALUES(DEFAULT, 'rask');
+
+
+INSERT INTO kval_kandidat(kvalifikasjon_id, kandidat_id) VALUES(3, 2);
+INSERT INTO kval_kandidat(kvalifikasjon_id, kandidat_id) VALUES(1, 2);
+INSERT INTO kval_kandidat(kvalifikasjon_id, kandidat_id) VALUES(1, 1);
+INSERT INTO kval_kandidat(kvalifikasjon_id, kandidat_id) VALUES(2, 2);
+
+
+INSERT INTO oppdrag(oppdrag_id, planlagt_startdato, planlagt_sluttdato, planlagt_timer,
+ virkelig_startdato, virkelig_sluttdato, virkelig_timer, sluttattest, bedrift_id, kval_id, kandidat_id)
+ VALUES(DEFAULT, DATE('2001-02-16'), DATE('2001-02-18'), 200,
+ DATE('2001-02-16'), DATE('2001-02-19'), 202,
+ 'nice eller noe', 345345, 1, 2);
+
+INSERT INTO oppdrag(oppdrag_id, planlagt_startdato, planlagt_sluttdato, planlagt_timer,
+ virkelig_startdato, virkelig_sluttdato, virkelig_timer, sluttattest, bedrift_id, kval_id, kandidat_id)
+ VALUES(DEFAULT, DATE('2002-02-16'), DATE('2002-02-18'), 300,
+ DATE('2002-03-16'), DATE('2002-03-19'), 302,
+ 'nice eller nice', 53453, 1, 2);
+
+INSERT INTO oppdrag(oppdrag_id, planlagt_startdato, planlagt_sluttdato, planlagt_timer, bedrift_id, kval_id)
+ VALUES(DEFAULT, DATE('2001-04-16'), DATE('2001-04-17'), 100, 345345, 3);
