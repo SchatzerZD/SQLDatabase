@@ -1,0 +1,51 @@
+CREATE TABLE vikartjeneste(
+ organisasjons_nr int PRIMARY KEY,
+ navn VARCHAR(30),
+ adresse VARCHAR(30),
+ telefon CHAR(15),
+ epost VARCHAR(30));
+
+CREATE TABLE bedrift(
+ organisasjons_nr int PRIMARY KEY UNIQUE,
+ navn VARCHAR(30),
+ telefon CHAR(15),
+ epost VARCHAR(30));
+
+CREATE TABLE oppdrag(
+ oppdrag_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ planlagt_startdato DATE,
+ planlagt_sluttdato DATE,
+ planlagt_timer int,
+ virkelig_startdato DATE,
+ virkelig_sluttdato DATE,
+ virkelig_timer int,
+ sluttattest VARCHAR(128),
+ bedrift_id int NOT NULL,
+ kval_id int NOT NULL,
+ kandidat_id int);
+
+CREATE TABLE kandidat(
+ kandidat_id int PRIMARY KEY AUTO_INCREMENT,
+ fornavn VARCHAR(30) NOT NULL,
+ etternavn VARCHAR(30) NOT NULL,
+ telefon CHAR(15),
+ epost VARCHAR(30) NOT NULL);
+
+CREATE TABLE kvalifikasjon(
+ kvalifikasjon_id int PRIMARY KEY AUTO_INCREMENT,
+ beskrivelse VARCHAR(30));
+
+CREATE TABLE kval_kandidat(
+ kvalifikasjon_id int,
+ kandidat_id int,
+ CONSTRAINT kvalifikasjon_kandidat_pk PRIMARY KEY(kvalifikasjon_id, kandidat_id));
+
+
+ALTER TABLE oppdrag ADD CONSTRAINT oppdrag_fk1 FOREIGN KEY(bedrift_id) REFERENCES bedrift (org_nr);
+ALTER TABLE oppdrag ADD CONSTRAINT oppdrag_fk2 FOREIGN KEY(kval_id) REFERENCES kvalifikasjon (kval_id);
+ALTER TABLE oppdrag ADD CONSTRAINT oppdrag_fk3 FOREIGN KEY(kval_id, kandidat_id) REFERENCES
+kval_kandidat (kvalifikasjon_id, kandidat_id);
+ALTER TABLE kval_kandidat ADD CONSTRAINT kval_kandidat_fk1 FOREIGN KEY(kvalifikasjon_id) REFERENCES
+kvalifikasjon (kvalifikasjon_id);
+ALTER TABLE kval_kandidat ADD CONSTRAINT kval_kandidat_fk2 FOREIGN KEY(kandidat_id) REFERENCES
+kandidat (kandidat_id);
